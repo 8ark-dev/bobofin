@@ -1,10 +1,12 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const cors = require('cors');
 
 const app = express();
 const port = 8000;
 
 app.use(bodyParser.json()); //undefined 데이터 처리를 위한 미들웨어
+app.use(cors()); //cors 처리를 위한 미들웨어
 
 // res : 사전에 정의된 응답 객체
 // req : 정의되지 않은 데이터 처리를 위한 요청 객체
@@ -12,13 +14,13 @@ app.use(bodyParser.json()); //undefined 데이터 처리를 위한 미들웨어
 //조회
 app.get('/', (req, res) => {
   // res.send('Hello World!');
-  res.json({ message: 'Hello World!' });
+  res.json({ message: 'Hloㄴㄴ World!' });
 });
-
-// //생성 -> 요청이 온 데이터 처리
-// app.post('/post', (req, res) => {
-//   res.send(req.body);
-// });
+//생성 -> 요청이 온 데이터 처리
+app.post('/post', (req, res) => {
+  res.json(req.body);
+  console.log(req.body.id);
+});
 
 // //서버실행 (포트)
 // require('./routes/user.routes.js')(app);
