@@ -1,5 +1,4 @@
 const sql = require('./db.js');
-
 // 생성자
 const Post = function (post) {
   this.id = post.id;
@@ -8,19 +7,19 @@ const Post = function (post) {
 };
 
 Post.create = (post, result) => {
-  sql.query('INSERT INTO user SET ?', post, (err, res) => {
+  sql.query('INSERT INTO post (id, title, content) VALUES (?, ?, ?)', [post.id, post.title, post.content], (err, res) => {
     if (err) {
       console.log('error: ', err);
       result(err, null);
       return;
     }
-    console.log('created post: ', { id: res.insertId, ...newPost });
-    result(null, { id: res.insertId, ...newPost });
+    console.log('created post: ', { id: res.insertId, ...post });
+    result(null, { id: res.insertId, ...post });
   });
 };
 
 Post.findById = (postId, result) => {
-  sql.query(`SELECT * FROM user WHERE id = ${postId}`, (err, res) => {
+  sql.query(`SELECT * FROM post WHERE id = ${postId}`, (err, res) => {
     if (err) {
       console.log('error: ', err);
       result(err, null);
@@ -37,7 +36,7 @@ Post.findById = (postId, result) => {
 };
 
 Post.getAll = (result) => {
-  sql.query('SELECT * FROM user', (err, res) => {
+  sql.query('SELECT * FROM post', (err, res) => {
     if (err) {
       console.log('error: ', err);
       result(null, err);
@@ -70,7 +69,7 @@ Post.updateById = (id, post, result) => {
 };
 
 Post.remove = (id, result) => {
-  sql.query('DELETE FROM user WHERE id = ?', id, (err, res) => {
+  sql.query('DELETE FROM post WHERE id = ?', id, (err, res) => {
     if (err) {
       console.log('error: ', err);
       result(null, err);
