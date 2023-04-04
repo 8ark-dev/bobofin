@@ -36,3 +36,21 @@ exports.findAll = (req, res) => {
     else res.send(data);
   });
 };
+
+// Delete specific Post from the database.
+exports.delete = (req, res) => {
+  Post.remove(req.body.id, (err, data) => {
+    if (err) {
+      
+      if (err.kind === 'not_found') {
+        res.status(404).send({
+          message: `Not found Post with id ${req.params.id}.`,
+        });
+      } else {
+        res.status(500).send({
+          message: 'Could not delete Post with id ' + req.params.id,
+        });
+      }
+    } else res.send({ message: `Post was deleted successfully!` });
+  });
+}
