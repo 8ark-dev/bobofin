@@ -49,7 +49,7 @@ Post.getAll = (result) => {
 
 Post.updateById = (id, post, result) => {
   sql.query(
-    'UPDATE user SET title = ?, content = ? WHERE id = ?',
+    'UPDATE post SET title = ?, content = ? WHERE id = ?',
     [post.title, post.content, id],
     (err, res) => {
       if (err) {

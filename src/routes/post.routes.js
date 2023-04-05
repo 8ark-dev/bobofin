@@ -3,5 +3,6 @@ module.exports = (app) => {
 
   app.post('/post', posts.create);
   app.get('/post', posts.findAll);
-  app.delete('/post/', posts.delete);
+  app.delete('/post', posts.delete);
+  app.put('/post', posts.update);
 };
