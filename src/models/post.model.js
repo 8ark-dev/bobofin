@@ -1,4 +1,7 @@
 const sql = require('./db.js');
+//실질적으로 데이터베이스와 연결되는 부분
+//모든 메소드를 정의하는 부분
+
 // 생성자
 const Post = function (post) {
   this.id = post.id;
@@ -13,7 +16,9 @@ Post.create = (post, result) => {
       result(err, null);
       return;
     }
-    console.log('created post: ', { id: res.insertId, ...post });
+    console.log('글 생성 : ', { id: res.insertId, ...post });
+    //result는 콜백함수이다. (에러, 결과)
+    //콜백함수란 다른 함수의 인자로 넘겨주는 함수를 말한다.
     result(null, { id: res.insertId, ...post });
   });
 };
@@ -26,7 +31,7 @@ Post.findById = (postId, result) => {
       return;
     }
     if (res.length) {
-      console.log('found post: ', res[0]);
+      console.log('글 목록 : ', res[0]);
       result(null, res[0]);
       return;
     }
@@ -42,7 +47,7 @@ Post.getAll = (result) => {
       result(null, err);
       return;
     }
-    console.log('posts: ', res);
+    console.log('글 : ', res);
     result(null, res);
   });
 };
@@ -62,7 +67,7 @@ Post.updateById = (id, post, result) => {
         result({ kind: 'not_found' }, null);
         return;
       }
-      console.log('updated post: ', { id: id, ...post });
+      console.log('글 갱신 : ', { id: id, ...post });
       result(null, { id: id, ...post });
     }
   );
@@ -80,7 +85,7 @@ Post.remove = (id, result) => {
       result({ kind: 'not_found' }, null);
       return;
     }
-    console.log('deleted post with id: ', id);
+    console.log('글 삭제 : ', id);
     result(null, res);
   });
 };

@@ -1,6 +1,8 @@
 module.exports = (app) => {
   const posts = require('../controller/post.controller.js');
 
+
+  //crud
   app.post('/post', posts.create);
   app.get('/post', posts.findAll);
   app.delete('/post', posts.delete);

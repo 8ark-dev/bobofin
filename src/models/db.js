@@ -10,7 +10,7 @@ const connection = mysql.createConnection({
 
 connection.connect((error) => {
   if (error) throw error;
-  console.log('Successfully connected to the database.');
+  console.log('데이터베이스에 연결되었습니다.');
 });
 
 
